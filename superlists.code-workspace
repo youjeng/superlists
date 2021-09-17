@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../JavaScriptTest"
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				//"type": "pwa-node",
+				"request": "launch",
+				"name": "Launch Program",
+				"skipFiles": [
+					"<node_internals>/**"
+				],
+				"program": "/Users/michaelJames/JavaScriptTest/JS_practice/eJS_4_returnArray/eJSreturnArray.js",
+				"__workspaceFolder": "/Users/michaelJames/JavaScriptTest/JS_practice/eJS_4_returnArray"
+			}
+		]
+	}
+}

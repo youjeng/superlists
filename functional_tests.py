@@ -33,26 +33,29 @@ class NewVisitorTest(unittest.TestCase):
 
         # When she hits enter, the page updates, and not the page lists
         # "1: Fill out paper work for ODNR" as an item in a to-do list
-        input_box.send_keys('Fill out paper work for ODNR')
+        input_box.send_keys(Keys.ENTER)
         time.sleep(1)
         
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Fill out paper work for ODNR' for row in rows),
-            "New To-Do item did appear in table"
-        )
-
+        
         # There is still a text box inviting her to add another item.
-        # She enters "order parts for bike shop"
-        self.fail('Finish the test!')
+        # She enters "order parts"
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('order parts')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # The page updates again, and shows both items on her list
-
-
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('1: Fill out paper work for ODNR',[row.text for row in rows])
+        self.assertIn('2: order parts',[row.text for row in rows])
+        
         # Edith wonders if the site will remember her list
         # She see's that the site has generated a unique URL for her  -- there is 
-        # some explanatory tesxt to that effect
+        # some explanatory text to that effect
+        self.fail('Finish the test!')
 
         # She visits that URL - her to-do list is still there
 

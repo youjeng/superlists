@@ -8,6 +8,11 @@ class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def tearDown(self):
         self.browser.quit()
         
@@ -35,10 +40,8 @@ class NewVisitorTest(unittest.TestCase):
         # "1: Fill out paper work for ODNR" as an item in a to-do list
         input_box.send_keys(Keys.ENTER)
         time.sleep(1)
-        
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        
+        self.check_for_row_in_list_table('1: Fill out paper work for ODNR')
+                
         # There is still a text box inviting her to add another item.
         # She enters "order parts"
         inputbox = self.browser.find_element_by_id('id_new_item')
@@ -47,10 +50,8 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
 
         # The page updates again, and shows both items on her list
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Fill out paper work for ODNR',[row.text for row in rows])
-        self.assertIn('2: order parts',[row.text for row in rows])
+        self.check_for_row_in_list_table('1: Fill out paper work for ODNR')
+        self.check_for_row_in_list_table('2: order parts')
         
         # Edith wonders if the site will remember her list
         # She see's that the site has generated a unique URL for her  -- there is 

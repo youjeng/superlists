@@ -64,6 +64,18 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Fill out paper work for ODNR')
         self.wait_for_row_in_list_table('2: order parts')
         
+        #  Satisifed, she goes back to sleep
+
+    def test_multiple_users_can_start_lists_at_different_urls(self)
+        # Edith starts a new to-do list
+        self.browser.get(self.live_server_url)
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Buy peacock feathers')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: Buy peacock feathers')
+
+        
+
         # Edith wonders if the site will remember her list
         # She see's that the site has generated a unique URL for her  -- there is 
         # some explanatory text to that effect
